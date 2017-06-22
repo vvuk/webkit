@@ -1012,6 +1012,12 @@ if (NOT MSVC)
     set_source_files_properties(runtime/ProxyObject.cpp PROPERTIES COMPILE_FLAGS -fno-optimize-sibling-calls)
 else ()
     # FIXME: Investigate if we need to set a similar flag on Windows.
+    if (NOT CMAKE_BUILD_TYPE MATCHES DEBUG)
+        # MSVC 2015,2017 hit an ICE when this is compiled with O2/Ox; we add "/Od Os" which diables the /O2,
+        # and then /Os does some optimizations.  Note that O1 also crashes.
+        # precedence
+        set_source_files_properties(b3/B3BreakCriticalEdges.cpp PROPERTIES COMPILE_FLAGS "/Od /Os")
+    endif ()
 endif ()
 
 set(JavaScriptCore_OBJECT_LUT_SOURCES
