@@ -444,7 +444,7 @@ macro(WEBKIT_DEBUG_DUMP_COMMANDS)
 endmacro()
 
 macro(WEBKIT_DEBUG_DUMP_VARIABLES)
-    set_cmake_property(_variableNames VARIABLES)
+    get_cmake_property(_variableNames VARIABLES)
     foreach (_variableName ${_variableNames})
        message(STATUS "${_variableName}=${${_variableName}}")
     endforeach ()
