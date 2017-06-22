@@ -1,7 +1,7 @@
 @ECHO OFF
 
-SET BUILDTYPE=release
-REM SET BUILDTYPE=debug
+REM SET BUILDTYPE=release
+SET BUILDTYPE=debug
 
 call "c:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvarsall.bat" amd64
 SET VSDIR=vs2017
@@ -27,7 +27,7 @@ mkdir jscore-%VSDIR%\x64
 xcopy /y /q Source\JavaScriptCore\API\*.h jscore-%VSDIR%\includes\JavaScriptCore
 copy WebKitBuild\%BUILDTYPE%\lib\JavaScriptCore.lib jscore-%VSDIR%\x64\JavaScriptCore-%BUILDTYPE%.lib
 copy WebKitBuild\%BUILDTYPE%\lib\WTF.lib jscore-%VSDIR%\x64\WTF-%BUILDTYPE%.lib
-copy WebKitLibraries\win\lib64\libicuuc.lib jscore-%VSDIR%\x64
-copy WebKitLibraries\win\lib64\libicuin.lib jscore-%VSDIR%\x64
+copy WebKitLibraries\win\lib64\libicu*.lib jscore-%VSDIR%\x64
+copy WebKitLibraries\win\bin64\icu*.dll jscore-%VSDIR%\x64
 
 :done
