@@ -48,7 +48,7 @@ namespace WTF {
 
 #if !defined(NDEBUG)
 namespace {
-size_t maxSingleAllocationSize = std::numeric_limits<size_t>::max();
+size_t maxSingleAllocationSize = SIZE_MAX;
 };
 
 void fastSetMaxSingleAllocationSize(size_t size)
