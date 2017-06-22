@@ -10,6 +10,8 @@ autoinstall.cache.d
 project.xcworkspace
 xcuserdata
 
+jscore-*
+
 # Ignore auto-generated files by VS2005 and VS2010.
 *.vcproj.*.user
 *.suo
@@ -27,6 +29,7 @@ __cmake_systeminformation/
 
 # Ignore files installed by WebKitSupportLibrary/WebKitAuxiliaryLibrary
 /WebKitSupportLibrary.zip
+/WebKitLibraries/win
 /WebKitLibraries/win/Software License Agreement for WebKit Support Libraries.rtf
 /WebKitLibraries/win/WebKitAuxiliaryLibrary.headers
 /WebKitLibraries/win/WebKitAuxiliaryLibraryVersion
