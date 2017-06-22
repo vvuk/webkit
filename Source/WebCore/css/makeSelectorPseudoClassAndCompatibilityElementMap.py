@@ -57,7 +57,7 @@ def enumerablePseudoType(stringPseudoType):
 def expand_ifdef_condition(condition):
     return condition.replace('(', '_').replace(')', '')
 
-output_file = open('SelectorPseudoClassAndCompatibilityElementMap.gperf', 'w')
+output_file = open('SelectorPseudoClassAndCompatibilityElementMap.gperf', 'wb')
 
 output_file.write("""
 %{

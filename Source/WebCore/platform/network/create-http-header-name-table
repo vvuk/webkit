@@ -54,7 +54,7 @@ input_file.close()
 
 http_header_names.sort()
 
-gperf_file = open('HTTPHeaderNames.gperf', 'w')
+gperf_file = open('HTTPHeaderNames.gperf', 'wb')
 gperf_file.write('''
 %{
 /*
