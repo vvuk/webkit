@@ -45,11 +45,8 @@ if (WTF_CPU_X86 OR WTF_CPU_X86_64)
     SET_AND_EXPOSE_TO_BUILD(USE_UDIS86 1)
 endif ()
 
-# FIXME: JSCOnly on WIN32 seems to only work with fully static build
-# https://bugs.webkit.org/show_bug.cgi?id=172862
-if (ENABLE_STATIC_JSC OR WIN32)
-    set(JavaScriptCore_LIBRARY_TYPE STATIC)
-endif ()
+# Always build WTF static for jsconly builds
+set(WTF_LIBRARY_TYPE STATIC)
 
 if (WIN32)
     add_definitions(-DNOMINMAX)

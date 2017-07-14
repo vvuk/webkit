@@ -5,7 +5,6 @@ set(JSC_SOURCES
 set(JSC_LIBRARIES
     ${CMAKE_DL_LIBS}
     JavaScriptCore${DEBUG_SUFFIX}
-    WTF${DEBUG_SUFFIX}
 )
 
 if (WTF_OS_MAC_OS_X)
@@ -36,8 +35,20 @@ WEBKIT_WRAP_SOURCELIST(${JSC_SOURCES})
 WEBKIT_WRAP_SOURCELIST(${TESTAPI_SOURCES})
 include_directories(./ ${JavaScriptCore_INCLUDE_DIRECTORIES})
 include_directories(SYSTEM ${JavaScriptCore_SYSTEM_INCLUDE_DIRECTORIES})
+
+# A bit of a hack to make sure we always have the WTF includes,
+# regardless if WTF is coming to us via WTF directly or statically from
+# a static WTF in a shared JavaScriptCore
+get_target_property(wtfincludes WTF INTERFACE_INCLUDE_DIRECTORIES)
+include_directories(${wtfincludes})
+# Another bit of a hack; this is part of WTF's libs, but we might not
+# be actually depending on the WTF target if WTF is static inside JSCore
+if (MSVC)
+  link_libraries(winmm)
+endif()
+
 add_executable(jsc ${JSC_SOURCES})
-target_link_libraries(jsc ${JSC_LIBRARIES})
+target_link_libraries(jsc ${JSC_LIBRARIES} ${WTF_LIBRARIES})
 
 if (JSC_OUTPUT_NAME)
     set_target_properties(jsc PROPERTIES OUTPUT_NAME ${JSC_OUTPUT_NAME})

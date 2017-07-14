@@ -1074,10 +1074,15 @@ set(JavaScriptCore_OBJECT_LUT_SOURCES
 )
 
 set(JavaScriptCore_LIBRARIES
-    WTF${DEBUG_SUFFIX}
     ${ICU_I18N_LIBRARIES}
     ${LLVM_LIBRARIES}
 )
+
+if("${WTF_LIBRARY_TYPE}" STREQUAL "STATIC")
+  set(JavaScriptCore_PRIVATE_LIBRARIES WTF${DEBUG_SUFFIX})
+else()
+  list(APPEND JavaScriptCore_LIBRARIES WTF${DEBUG_SUFFIX})
+endif()
 
 set(JavaScriptCore_SCRIPTS_SOURCES_DIR "${JAVASCRIPTCORE_DIR}/Scripts")
 
@@ -1573,6 +1578,10 @@ if (NOT "${PORT}" STREQUAL "Mac")
         install(TARGETS JavaScriptCore DESTINATION "${LIB_INSTALL_DIR}")
     endif ()
 endif ()
+
+if("${WTF_LIBRARY_TYPE}" STREQUAL "STATIC")
+  target_compile_definitions(JavaScriptCore PRIVATE -DSTATICALLY_LINKED_WITH_WTF)
+endif()
 
 # Force staging of shared scripts, even if they aren't directly used to build JavaScriptCore.
 
